@@ -35,4 +35,4 @@ Will be posted upon acheiving the deliverables
 - **Yeshwanth**
   - GitHub: 
 ## AcknowledgmentS
-We are delighted to express our Thanks and gratitude to our professor 
+We are delighted to express our sincere  Thanks and gratitude to our professor  Reda Mastouri.
