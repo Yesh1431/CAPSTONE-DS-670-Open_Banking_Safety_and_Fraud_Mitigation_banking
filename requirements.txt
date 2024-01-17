@@ -119,36 +119,8 @@ gin-config==0.5.0
 gitdb==4.0.11
 GitPython==3.1.41
 glob2==0.7
-google==2.0.3
-google-ai-generativelanguage==0.4.0
-google-api-core==2.11.1
-google-api-python-client==2.84.0
-google-auth==2.17.3
-google-auth-httplib2==0.1.1
-google-auth-oauthlib==0.4.6
-google-cloud-aiplatform==1.39.0
-google-cloud-bigquery==3.12.0
-google-cloud-bigquery-connection==1.12.1
-google-cloud-bigquery-storage==2.24.0
-google-cloud-core==2.3.3
-google-cloud-datastore==2.15.2
-google-cloud-firestore==2.11.1
-google-cloud-functions==1.13.3
-google-cloud-iam==2.13.0
-google-cloud-language==2.9.1
-google-cloud-resource-manager==1.11.0
-google-cloud-storage==2.8.0
-google-cloud-translate==3.11.3
-google-colab @ file:///colabtools/dist/google-colab-1.0.0.tar.gz#sha256=d21534a0a182fd3963da79faef1bd2d65ab2f3103f2a748eadd6468f9361c123
-google-crc32c==1.5.0
-google-generativeai==0.3.2
-google-pasta==0.2.0
-google-resumable-media==2.7.0
-googleapis-common-protos==1.62.0
-googledrivedownloader==0.4
 graphviz==0.20.1
 greenlet==3.0.3
-grpc-google-iam-v1==0.13.0
 grpcio==1.60.0
 grpcio-status==1.48.2
 gspread==3.4.2
@@ -190,7 +162,6 @@ ipytree==0.2.2
 ipywidgets==7.7.1
 itsdangerous==2.1.2
 jax==0.3.25
-jaxlib @ https://storage.googleapis.com/jax-releases/nocuda/jaxlib-0.3.25-cp310-cp310-manylinux2014_x86_64.whl#sha256=6e2f4e51041b8371aa3976b5a3a9cdcdccb1bd7b040c9b1345cbf24bd28a8d19
 jedi==0.19.1
 jeepney==0.7.1
 jieba==0.42.1
@@ -328,7 +299,6 @@ pycocotools==2.0.7
 pycparser==2.21
 pyct==0.5.0
 pydantic==1.10.13
-pydata-google-auth==1.8.2
 pydeck==0.8.1b0
 pydot==1.4.2
 pydot-ng==2.0.0
