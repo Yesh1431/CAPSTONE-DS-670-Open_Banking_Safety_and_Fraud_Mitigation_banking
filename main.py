@@ -1,3 +1,5 @@
+import streamlit as st
+st.set_page_config(layout="wide")
 def preprocess_data(data):
   preprocessed_data = preprocessor.transform(data)
   return preprocessed_data
