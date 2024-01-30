@@ -163,8 +163,6 @@ ipython-sql==0.5.0
 ipytree==0.2.2
 ipywidgets==7.7.1
 itsdangerous==2.1.2
-jax==0.3.25
-jaxlib @ https://storage.googleapis.com/jax-releases/nocuda/jaxlib-0.3.25-cp310-cp310-manylinux2014_x86_64.whl#sha256=6e2f4e51041b8371aa3976b5a3a9cdcdccb1bd7b040c9b1345cbf24bd28a8d19
 jedi==0.19.1
 jeepney==0.7.1
 jieba==0.42.1
