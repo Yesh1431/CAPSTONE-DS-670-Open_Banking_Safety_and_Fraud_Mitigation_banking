@@ -6,46 +6,33 @@ def preprocess_data(data):
 
 def predict_fraud(data):
     # Preprocess the data
-    processed_data = preprocess_data(data)
+import streamlit as st
+import pandas as pd
+from joblib import load
 
-    # Make predictions using the loaded pipeline
-    predicted_labels = loaded_pipeline.predict(processed_data)
+# Load the trained model
+model = load("random_forest_pipeline.joblib")
 
-    return predicted_labels
-def main():
-    st.title("Fraud Detection Streamlit App")
+# Streamlit UI
+st.title("Fraud Detection App")
 
-    # Sample input form
-    st.sidebar.header("Input Features")
-    control_number = st.sidebar.number_input("Control Number", min_value=0)
-    financial_institution_number = st.sidebar.number_input("Financial Institution Number", min_value=0)
-    financial_institution_transaction_amount = st.sidebar.number_input("Financial Institution Transaction Amount", min_value=0.0)
-    transaction_amount_deviation = st.sidebar.number_input("Transaction Amount Deviation", min_value=0.0)
-    transaction_day = st.sidebar.number_input("Transaction Day", min_value=1, max_value=31)
-    transaction_month = st.sidebar.number_input("Transaction Month", min_value=1, max_value=12)
-    transaction_year = st.sidebar.number_input("Transaction Year", min_value=2022, max_value=2025)
+# User input fields
+reference_number = st.text_input("Reference Number:")
+control_number = st.text_input("Control Number:")
+financial_institution_number = st.text_input("Financial Institution Number:")
+deposit_business_date = st.date_input("Deposit Business Date:")
 
-    # Create a DataFrame with the input features
-    input_data = {
-        'Control-Number': [control_number],
-        'Financial-Institution-Number': [financial_institution_number],
-        'Financial-Institution-Transaction-Amount': [financial_institution_transaction_amount],
-        'Transaction-Amount-Deviation': [transaction_amount_deviation],
-        'Transaction-Day': [transaction_day],
-        'Transaction-Month': [transaction_month],
-        'Transaction-Year': [transaction_year],
-    }
-    input_df = pd.DataFrame(input_data)
+# Button to trigger prediction
+if st.button("Predict Fraud"):
+    # Make prediction
+    prediction = model.predict([[reference_number, control_number, financial_institution_number, deposit_business_date]])
+    
+    # Display prediction result
+    if prediction[0] == 1:
+        st.write("Fraudulent transaction detected!")
+    else:
+        st.write("No fraud detected.")
 
-    # Predict button
-    if st.sidebar.button("Predict Fraud"):
-        # Get predictions
-        predictions = predict_fraud(input_df)
-
-        # Display the results
-        st.subheader("Prediction Results")
-        st.write("Fraudulent Transaction:", predictions[0])
-
+# Run the Streamlit app
 if __name__ == "__main__":
-    main()
-
+    st.run()
