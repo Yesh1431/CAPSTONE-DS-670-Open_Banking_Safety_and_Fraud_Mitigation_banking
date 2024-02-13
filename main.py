@@ -1,14 +1,4 @@
 import streamlit as st
-
-
-st.set_page_config(layout="wide")
-def preprocess_data(data):
-  preprocessed_data = preprocessor.transform(data)
-  return preprocessed_data
-
-def predict_fraud(data):
-    # Preprocess the data
-import streamlit as st
 import pandas as pd
 from joblib import load
 
