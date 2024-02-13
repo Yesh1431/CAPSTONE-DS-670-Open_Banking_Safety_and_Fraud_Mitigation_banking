@@ -210,7 +210,6 @@ mizani==0.9.3
 mkl==2023.2.0
 ml-dtypes==0.2.0
 mlxtend==0.22.0
-more-itertools==10.1.0
 music21==9.1.0
 natsort==8.4.0
 nbclassic==1.0.0
