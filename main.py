@@ -8,10 +8,12 @@ from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 from datetime import datetime
 
-# Load your data
+# Function to load data from Google Drive
 @st.cache
-def load_data(csv_file):
-    return pd.read_csv(csv_file)
+def load_data(url):
+    response = requests.get(url)
+    data = pd.read_csv(url)
+    return data
 
 # Preprocess the data
 def preprocess_data(data):
@@ -42,11 +44,6 @@ def predict_fraud(model, input_data):
     # Example prediction logic, replace with your own model
     prediction = model.predict(input_data)
     return prediction
-
-# Load data
-data_file = 'your_data.csv'  # Replace with your CSV file path
-data = load_data(data_file)
-
 # Preprocess data
 preprocessed_data = preprocess_data(data)
 
