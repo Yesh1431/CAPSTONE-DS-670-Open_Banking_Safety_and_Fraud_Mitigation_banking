@@ -12,9 +12,7 @@ from datetime import datetime
 # Streamlit UI
 st.title("Fraud Detection App")
 
-# Load secrets
-secrets = Secrets()
-
+secrets = Secrets("/path/to/your/secrets.toml")
 # Streamlit UI
 st.title("Fraud Detection App")
 
