@@ -14,7 +14,7 @@ st.title("Fraud Detection App")
 
 secrets = Secrets("/path/to/your/secrets.toml")
 # Streamlit UI
-st.title("Fraud Detection App")
+
 
 # Load data
 csv_url = secrets["google_drive"]["csv_url"]
