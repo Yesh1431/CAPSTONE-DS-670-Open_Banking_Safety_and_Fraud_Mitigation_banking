@@ -8,12 +8,12 @@ from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 from datetime import datetime
 
-# Function to load data from Google Drive
-@st.cache
-def load_data(url):
-    response = requests.get(url)
-    data = pd.read_csv(url)
-    return data
+# Streamlit UI
+st.title("Fraud Detection App")
+
+# Load data
+url = 'https://drive.google.com/file/d/1OauO1IjuD3vCstKpB1t7znY4vsa_y6ej/view?usp=drive_link'
+data = load_data(url)
 
 # Preprocess the data
 def preprocess_data(data):
@@ -44,14 +44,12 @@ def predict_fraud(model, input_data):
     # Example prediction logic, replace with your own model
     prediction = model.predict(input_data)
     return prediction
+
 # Preprocess data
 preprocessed_data = preprocess_data(data)
 
 # Train model
 model = train_model(data)
-
-# Streamlit UI
-st.title("Fraud Detection App")
 
 # User input fields
 reference_number = st.text_input("Reference Number:")
