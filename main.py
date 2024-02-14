@@ -11,9 +11,16 @@ from datetime import datetime
 # Streamlit UI
 st.title("Fraud Detection App")
 
+# Load secrets
+secrets = Secrets()
+
+# Streamlit UI
+st.title("Fraud Detection App")
+
 # Load data
-url = 'https://drive.google.com/file/d/1OauO1IjuD3vCstKpB1t7znY4vsa_y6ej/view?usp=drive_link'
-data = load_data(url)
+csv_url = secrets["google_drive"]["csv_url"]
+response = requests.get(csv_url)
+data = pd.read_csv(response.text)
 
 # Preprocess the data
 def preprocess_data(data):
