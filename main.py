@@ -7,36 +7,11 @@ from sklearn.impute import SimpleImputer
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 from datetime import datetime
-import requests
 
-# Function to load data from Google Drive
+# Load your data
 @st.cache
-def load_data(url):
-    response = requests.get(url)
-    data = pd.read_csv(url)
-    return data
-
-# Streamlit UI
-st.title("Google Drive Data Loader")
-
-# User input field for Google Drive shareable link
-drive_link = st.text_input("Enter the shareable link to your Google Drive CSV file:")
-
-# Button to trigger data loading and display
-if st.button("Load Data"):
-    if drive_link:
-        try:
-            # Load data from Google Drive
-            data = load_data(drive_link)
-            
-            # Display the loaded data
-            st.write(data.head())
-        except Exception as e:
-            st.error("Error loading data. Please check the provided link and try again.")
-    else:
-        st.warning("Please enter a valid shareable link to your Google Drive CSV file.")
-
-
+def load_data(csv_file):
+    return pd.read_csv(csv_file)
 
 # Preprocess the data
 def preprocess_data(data):
