@@ -1,68 +1,84 @@
 import streamlit as st
+import joblib
 import pandas as pd
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
-from sklearn.impute import SimpleImputer
-from sklearn.compose import ColumnTransformer
-from sklearn.pipeline import Pipeline
-from datetime import datetime
+import numpy as np
 
-# Function to load data
-def load_data(csv_file):
-    return pd.read_csv(csv_file)
+# Load the model
+model = joblib.load('fraud_detection_model.joblib')
 
-# Preprocess the data
-def preprocess_data(data):
-    numeric_features = ['Control-Number', 'Financial-Institution-Number']
-    numeric_transformer = Pipeline(steps=[
-        ('imputer', SimpleImputer(strategy='mean')),
-        ('scaler', StandardScaler())])
-    preprocessor = ColumnTransformer(
-        transformers=[('num', numeric_transformer, numeric_features)])
-    preprocessed_data = preprocessor.fit_transform(data)
-    return preprocessed_data
+# Define the app
+st.title('Fraud Detection App')
+st.markdown(
+    """
+    <style>
+    .reportview-container {
+        background: linear-gradient(rgb(173, 216, 230), rgb(25, 25, 112));
+        color: white;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
-# Train the model
-def train_model(data):
-    X = data.drop(columns=['Fraud'])  # Assuming 'Fraud' is the target variable
-    y = data['Fraud']
-    model = RandomForestClassifier()
-    model.fit(X, y)
-    return model
+# Example data
+data = {
+    ' Reference Number': [39909909],
+    'Control-Number': [202000000000000.0],
+    'Financial-Institution-Number': [10],
+    'Deposit-Business-Date': ['4/3/2023'],
+    'Financial-Institution-Business-Date': ['4/3/2023'],
+    'Financial-Institution-Transaction-Date-Date': ['4/3/2023'],
+    'Financial-Institution-Transaction-Type-Code-': ['DEP'],
+    'Financial-Institution-Transaction-Amount': [41317.17],
+    'Authorization-Number': ['100030'],
+    'Transaction-Amount-Deviation': [0],
+    'Fraud': [0]
+}
 
-# Load data
-csv_file_path = st.file_uploader("Upload CSV", type=["csv"])
-if csv_file_path is not None:
-    data = load_data(csv_file_path)
-    st.write("Data loaded successfully!")
+# Create DataFrame from example data
+df = pd.DataFrame(data)
+
+# Check if the target column 'Fraud' exists in the DataFrame
+if 'Fraud' in df.columns:
+    # Drop the target column 'Fraud'
+    X_train = df.drop(columns=['Fraud'])
 else:
-    st.write("Please upload a CSV file.")
+    # If 'Fraud' column doesn't exist, use the entire DataFrame
+    X_train = df.copy()
 
-# Preprocess data and train model
-if st.button("Train Model"):
-    if 'data' in locals():
-        preprocessed_data = preprocess_data(data)
-        model = train_model(preprocessed_data)
-        st.write("Model trained successfully!")
+# Define the data types of features (replace with the actual data types)
+column_data_types = {
+    ' Reference Number': 'int64',
+    'Control-Number': 'float64',
+    'Financial-Institution-Number': 'int64',
+    'Deposit-Business-Date': 'datetime64[ns]',
+    'Financial-Institution-Business-Date': 'datetime64[ns]',
+    'Financial-Institution-Transaction-Date-Date': 'datetime64[ns]',
+    'Financial-Institution-Transaction-Type-Code-': 'object',
+    'Financial-Institution-Transaction-Amount': 'float64',
+    'Authorization-Number': 'object',
+    'Transaction-Amount-Deviation': 'int64'
+}
 
-# Input fields for prediction
-if 'model' in locals():
-    st.title("Fraud Detection App")
-    reference_number = st.text_input("Reference Number:")
-    control_number = st.text_input("Control Number:")
-    financial_institution_number = st.text_input("Financial Institution Number:")
-    deposit_business_date = st.date_input("Deposit Business Date:", value=datetime.today())
+# Create input fields based on the defined data types
+input_data = {}
+for column, dtype in column_data_types.items():
+    if dtype == 'object':
+        input_value = st.text_input(column, value='Enter value')
+    elif dtype == 'float64':
+        input_value = st.number_input(column, value=0.0)
+    elif dtype == 'int64':
+        input_value = st.number_input(column, value=0)
 
-    # Button to trigger prediction
-    if st.button("Predict Fraud"):
-        user_input = pd.DataFrame({
-            'Control-Number': [control_number],
-            'Financial-Institution-Number': [financial_institution_number],
-        })
-        preprocessed_input = preprocess_data(user_input)
-        prediction = model.predict(preprocessed_input)
-        if prediction[0] == 1:
-            st.write("Fraudulent transaction detected!")
-        else:
-            st.write("No fraud detected.")
+    # Store input values in a dictionary
+    input_data[column] = input_value
+
+# Make predictions
+if st.button('Predict'):
+    input_df = pd.DataFrame(input_data, index=[0])
+    prediction = model.predict(input_df)
+    if prediction[0] == 1:
+        st.write('Prediction: Fraudulent transaction')
+    else:
+        st.write('Prediction: No fraud')
+
