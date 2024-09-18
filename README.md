@@ -23,16 +23,5 @@ Follow these steps to get started with the project:
 2. Install dependencies: `pip install -r requirements.txt`
 3. Execute the code: `python main.py`
 
-
-## Results
-Will be posted upon acheiving the deliverables
-
-## Contributors
-- **Vishant**
-  - GitHub: 
-- **Chirudeep**
-  - GitHub: 
-- **Yeshwanth**
-  - GitHub: 
 ## AcknowledgmentS
 We are delighted to express our sincere  Thanks and gratitude to our professor  Reda Mastouri.
